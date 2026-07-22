@@ -27,13 +27,6 @@ const QuizZite = () => {
 
   // Check authentication status on load
   useEffect(() => {
-    // TEMPORARY: Bypass auth for local presentation
-    if (new URLSearchParams(window.location.search).has('demo')) {
-      setUser({ email: 'demo@quizzite.local' });
-      setCheckingAuth(false);
-      return;
-    }
-
     // First check if token is in URL (after OAuth redirect)
     const urlParams = new URLSearchParams(window.location.search);
     const urlToken = urlParams.get('token');
