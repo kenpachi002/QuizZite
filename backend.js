@@ -88,7 +88,7 @@ Only return the JSON array, no additional text or explanation.`;
     const response = await axios.post(
       GROQ_API_URL,
       {
-        model: 'llama3-70b-8192',
+        model: 'llama-3.3-70b-versatile',
         messages: [
           {
             role: 'system',
