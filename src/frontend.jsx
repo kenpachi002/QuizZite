@@ -15,15 +15,42 @@ const QuizZite = () => {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  // Get auth headers for API calls
+  const getAuthHeaders = () => {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = localStorage.getItem('token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+  };
+
   // Check authentication status on load
   useEffect(() => {
+    // First check if token is in URL (after OAuth redirect)
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlToken = urlParams.get('token');
+    
+    if (urlToken) {
+      // Store token in localStorage and clean URL
+      localStorage.setItem('token', urlToken);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    
     checkAuth();
   }, []);
 
   const checkAuth = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setCheckingAuth(false);
+      return;
+    }
+    
     try {
       const response = await fetch('/api/auth/me', {
-        credentials: 'include'
+        credentials: 'include',
+        headers: getAuthHeaders()
       });
       if (response.ok) {
         const data = await response.json();
@@ -44,8 +71,10 @@ const QuizZite = () => {
     try {
       await fetch('/api/auth/logout', {
         method: 'POST',
-        credentials: 'include'
+        credentials: 'include',
+        headers: getAuthHeaders()
       });
+      localStorage.removeItem('token');
       setUser(null);
       setQuizStarted(false);
       setQuestions([]);
@@ -67,7 +96,7 @@ const QuizZite = () => {
     try {
       const response = await fetch('/api/generate-quiz', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ topic: selectedTopic, difficulty, count: 5 })
       });
       

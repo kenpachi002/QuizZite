@@ -204,7 +204,8 @@ app.get('/api/auth/google/callback', async (req, res) => {
       ? GOOGLE_REDIRECT_URI.replace('/auth/google/callback', '')
       : 'http://localhost:5173');
     
-    res.redirect(frontendUrl);
+    // Pass token as URL parameter for reliable client-side storage
+    res.redirect(`${frontendUrl}?token=${encodeURIComponent(ourToken)}`);
   } catch (error) {
     console.error('OAuth callback error:', error.response?.data || error.message);
     res.status(500).json({ error: 'Authentication failed' });
