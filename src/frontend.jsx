@@ -156,6 +156,20 @@ const QuizZite = () => {
     return (
       <div className="app-container">
         <div className="setup-card">
+          <div className="auth-section">
+            {checkingAuth ? (
+              <div className="auth-loading">Checking auth...</div>
+            ) : user ? (
+              <div className="auth-user">
+                <span className="user-email">👤 {user.email}</span>
+                <button onClick={logout} className="auth-btn logout-btn">Logout</button>
+              </div>
+            ) : (
+              <button onClick={login} className="auth-btn login-btn">
+                Login with Google
+              </button>
+            )}
+          </div>
           <h1>QuizZite 🎯</h1>
           <p className="subtitle">Test your knowledge with AI-powered quizzes</p>
           

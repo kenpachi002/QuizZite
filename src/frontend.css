@@ -121,6 +121,59 @@
   color: white;
 }
 
+.auth-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.auth-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn {
+  background: #4285f4;
+  color: white;
+  border: 1px solid #357abd;
+}
+
+.login-btn:hover {
+  background: #357abd;
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  background: #e5e7eb;
+}
+
+.auth-user {
+  display: flex;
+  align-items: center;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.auth-loading {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
 .start-btn {
   width: 100%;
   padding: 15px;
